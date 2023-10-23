@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Medicination.API.Migrations
 {
     /// <inheritdoc />
-    public partial class initialDB : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -93,11 +93,11 @@ namespace Medicination.API.Migrations
                 columns: table => new
                 {
                     MedicinesId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UsersId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MedicineUser", x => new { x.MedicinesId, x.UserId });
+                    table.PrimaryKey("PK_MedicineUser", x => new { x.MedicinesId, x.UsersId });
                     table.ForeignKey(
                         name: "FK_MedicineUser_Medicines_MedicinesId",
                         column: x => x.MedicinesId,
@@ -105,8 +105,8 @@ namespace Medicination.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MedicineUser_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_MedicineUser_Users_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -117,11 +117,11 @@ namespace Medicination.API.Migrations
                 columns: table => new
                 {
                     MedicinesId = table.Column<int>(type: "int", nullable: false),
-                    MemberId = table.Column<int>(type: "int", nullable: false)
+                    MembersId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MedicineMember", x => new { x.MedicinesId, x.MemberId });
+                    table.PrimaryKey("PK_MedicineMember", x => new { x.MedicinesId, x.MembersId });
                     table.ForeignKey(
                         name: "FK_MedicineMember_Medicines_MedicinesId",
                         column: x => x.MedicinesId,
@@ -129,17 +129,17 @@ namespace Medicination.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MedicineMember_Members_MemberId",
-                        column: x => x.MemberId,
+                        name: "FK_MedicineMember_Members_MembersId",
+                        column: x => x.MembersId,
                         principalTable: "Members",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicineMember_MemberId",
+                name: "IX_MedicineMember_MembersId",
                 table: "MedicineMember",
-                column: "MemberId");
+                column: "MembersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Medicines_CategoryId",
@@ -147,9 +147,9 @@ namespace Medicination.API.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicineUser_UserId",
+                name: "IX_MedicineUser_UsersId",
                 table: "MedicineUser",
-                column: "UserId");
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Members_UserId",

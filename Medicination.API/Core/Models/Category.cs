@@ -2,7 +2,11 @@
 {
 	public class Category : BaseEntity
 	{
-		public string? CategoryName { get; set; }
+        public Category()
+        {
+            Medicines = new HashSet<Medicine>();
+        }
+        public string? CategoryName { get; set; }
         public ICollection<Medicine>? Medicines { get; set; }
     }
 }

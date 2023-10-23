@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medicination.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231022093631_initialDB")]
-    partial class initialDB
+    [Migration("20231023132959_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,12 +137,12 @@ namespace Medicination.API.Migrations
                     b.Property<int>("MedicinesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MemberId")
+                    b.Property<int>("MembersId")
                         .HasColumnType("int");
 
-                    b.HasKey("MedicinesId", "MemberId");
+                    b.HasKey("MedicinesId", "MembersId");
 
-                    b.HasIndex("MemberId");
+                    b.HasIndex("MembersId");
 
                     b.ToTable("MedicineMember");
                 });
@@ -152,12 +152,12 @@ namespace Medicination.API.Migrations
                     b.Property<int>("MedicinesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UsersId")
                         .HasColumnType("int");
 
-                    b.HasKey("MedicinesId", "UserId");
+                    b.HasKey("MedicinesId", "UsersId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("MedicineUser");
                 });
@@ -194,7 +194,7 @@ namespace Medicination.API.Migrations
 
                     b.HasOne("Medicination.API.Core.Models.Member", null)
                         .WithMany()
-                        .HasForeignKey("MemberId")
+                        .HasForeignKey("MembersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -209,7 +209,7 @@ namespace Medicination.API.Migrations
 
                     b.HasOne("Medicination.API.Core.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -13,9 +13,9 @@ namespace Medicination.API.Services.Mapping
             CreateMap<Member, MemberDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();
 
-			CreateMap<Medicine, MedicineDto>()
-		   .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.FirstOrDefault().Id))
-		   .ForMember(dest => dest.MemberId, opt => opt.MapFrom(src => src.Member.FirstOrDefault().Id));
+			//CreateMap<Medicine, MedicineDto>()
+		 //  .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.FirstOrDefault().Id))
+		 //  .ForMember(dest => dest.MemberId, opt => opt.MapFrom(src => src.Member.FirstOrDefault().Id));
 
 		}
     }
