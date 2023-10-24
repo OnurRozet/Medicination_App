@@ -10,6 +10,7 @@ namespace Medicination.API.Services.Services
 	{
 		public MemberService(IGenericRepository<Member> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
 		{
+
 		}
 	}
 }

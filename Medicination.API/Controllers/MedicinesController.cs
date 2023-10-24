@@ -12,12 +12,16 @@ namespace Medicination.API.Controllers
 	public class MedicinesController : ControllerBase
 	{
 		private readonly IMedicineService _service;
+		private readonly IUserService _userService;
+		private readonly IMemberService _memberService;
 		private readonly IMapper _mapper;
 
-		public MedicinesController(IMedicineService service, IMapper mapper)
+		public MedicinesController(IMedicineService service, IMapper mapper, IUserService userService, IMemberService memberService)
 		{
 			_service = service;
 			_mapper = mapper;
+			_userService = userService;
+			_memberService = memberService;
 		}
 
 		[HttpGet]
@@ -37,16 +41,46 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddCategory(MedicineDto medicineDto)
+		public async Task<IActionResult> AddMedicine(MedicineDto medicineDto)
 		{
-			var addedMedicine = await _service.AddAsync(_mapper.Map<Medicine>(medicineDto));
-			var medicine = _mapper.Map<MedicineDto>(addedMedicine);
-			return Ok(CustomResponseDto<MedicineDto>.Succcess(201, medicine));
+
+			var medicine = _mapper.Map<Medicine>(medicineDto);
+
+			if (medicineDto.UserId != null)
+			{
+                foreach (var userId in medicineDto.UserId)
+                {
+					var user = await _userService.GetById(userId);
+					if (user !=null)
+					{
+						medicine.Users.Add(user);
+					}
+                }
+            }
+
+			if (medicineDto.MemberId != null)
+			{
+				foreach (var memberId in medicineDto.MemberId)
+				{
+					var member = await _memberService.GetById(memberId);
+					if (member != null)
+					{
+						medicine.Members.Add(member);
+					}
+				}
+			}
+
+
+
+			var addedMedicine = await _service.AddAsync(medicine);
+			var addedMedicineDto = _mapper.Map<MedicineDto>(addedMedicine);
+			return Ok(CustomResponseDto<MedicineDto>.Succcess(201, addedMedicineDto));
 		}
 
 
+
 		[HttpPut]
-		public async Task<IActionResult> UpdateCategory(MedicineDto medicineDto)
+		public async Task<IActionResult> UpdateMedicine(MedicineDto medicineDto)
 		{
 			await _service.UpdateAsync(_mapper.Map<Medicine>(medicineDto));
 
@@ -54,7 +88,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<IActionResult> DeleteCategory(int id)
+		public async Task<IActionResult> DeleteMedicine(int id)
 		{
 			var medicine = await _service.GetById(id);
 			await _service.DeleteAsync(medicine);
