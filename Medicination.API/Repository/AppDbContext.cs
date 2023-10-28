@@ -1,13 +1,15 @@
 ﻿using Medicination.API.Core.Dtos;
 using Medicination.API.Core.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace Medicination.API.Repository
 {
-	public class AppDbContext : DbContext
+	public class AppDbContext : IdentityDbContext<User,IdentityRole,string>
 	{
-		public AppDbContext(DbContextOptions options) : base(options)
+		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
 		{
 
 		}

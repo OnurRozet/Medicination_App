@@ -36,7 +36,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddCategory(UserDto user)
+		public async Task<IActionResult> AddUser(UserDto user)
 		{
 			var addedUser = await _service.AddAsync(_mapper.Map<User>(user));
 			var userDto = _mapper.Map<UserDto>(user);
@@ -45,7 +45,7 @@ namespace Medicination.API.Controllers
 
 
 		[HttpPut]
-		public async Task<IActionResult> UpdateCategory(UserDto user)
+		public async Task<IActionResult> UpdateUser(UserDto user)
 		{
 			await _service.UpdateAsync(_mapper.Map<User>(user));
 
@@ -53,7 +53,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<IActionResult> DeleteCategory(int id)
+		public async Task<IActionResult> DeleteUser(int id)
 		{
 			var user = await _service.GetById(id);
 			await _service.DeleteAsync(user);
