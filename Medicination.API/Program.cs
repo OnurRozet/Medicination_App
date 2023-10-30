@@ -1,6 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Medicination.API.Core.Dtos;
+using Medicination.API.Core.Models;
 using Medicination.API.Core.Repositories;
 using Medicination.API.Core.Services;
 using Medicination.API.Core.UnitOfWork;
@@ -8,8 +9,10 @@ using Medicination.API.Repository;
 using Medicination.API.Repository.Repositores;
 using Medicination.API.Repository.UnitOfWork;
 using Medicination.API.Services.Mapping;
+using Medicination.API.Services.OptionsModels;
 using Medicination.API.Services.Services;
 using Medicination.API.Services.Validations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -32,12 +35,32 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 
+
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+
+builder.Services.AddIdentity<User, IdentityRole>(opt =>
+{
+	opt.Password.RequiredLength = 6;
+	opt.Password.RequireDigit = false;
+	opt.Password.RequireLowercase = true;
+	opt.Password.RequireUppercase = true;
+
+	opt.User.RequireUniqueEmail = true;
+	
+}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
 
