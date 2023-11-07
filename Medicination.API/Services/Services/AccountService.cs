@@ -95,9 +95,12 @@ namespace Medicination.API.Services.Services
 		{
 			var identityResult = await _userManager.CreateAsync(new User
 			{
+				Id=signUp.Id,
 				Email = signUp.Email,
 				UserName = signUp.UserName,
 				PhoneNumber = signUp.Phone,
+				Name = signUp.Name,
+				Surname = signUp.Surname,
 			}, signUp.ConfirmPassword);
 
 			if (!identityResult.Succeeded)

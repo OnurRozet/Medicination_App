@@ -7,7 +7,7 @@ namespace Medicination.API.Core.Dtos
 		public string? Name { get; set; }
 		public string? Surname { get; set; }
 		public Gender Gender { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         
     }
 }

@@ -28,7 +28,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public async Task<IActionResult> GetById(int id)
+		public async Task<IActionResult> GetById(string id)
 		{
 			var user = await _service.GetById(id);
 			var userDto = _mapper.Map<UserDto>(user);
@@ -53,7 +53,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<IActionResult> DeleteUser(int id)
+		public async Task<IActionResult> DeleteUser(string id)
 		{
 			var user = await _service.GetById(id);
 			await _service.DeleteAsync(user);

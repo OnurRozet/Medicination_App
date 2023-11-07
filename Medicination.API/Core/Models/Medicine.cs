@@ -21,7 +21,7 @@ namespace Medicination.API.Core.Models
 
         public ICollection<Member> Members { get; set; }
 
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
         public Category? Category { get; set; }
 
 

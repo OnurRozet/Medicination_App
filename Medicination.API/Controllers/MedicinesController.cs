@@ -33,7 +33,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public async Task<IActionResult> GetById(int id)
+		public async Task<IActionResult> GetById(string id)
 		{
 			var medicine = await _service.GetById(id);
 			var medicineDto = _mapper.Map<MedicineDto>(medicine);
@@ -88,7 +88,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<IActionResult> DeleteMedicine(int id)
+		public async Task<IActionResult> DeleteMedicine(string id)
 		{
 			var medicine = await _service.GetById(id);
 			await _service.DeleteAsync(medicine);

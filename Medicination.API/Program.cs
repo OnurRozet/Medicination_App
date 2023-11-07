@@ -63,6 +63,19 @@ builder.Services.AddIdentity<User, IdentityRole>(opt =>
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("corsPolicy", builder =>
+	{
+		builder
+		 .WithOrigins("http://localhost:3000", "https://example.com")
+			.AllowAnyOrigin()
+			.AllowAnyHeader()
+			.AllowAnyMethod();
+	});
+});
+
+
 
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
@@ -87,5 +100,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("corsPolicy");
 
 app.Run();

@@ -3,21 +3,23 @@ using Medicination.API.Core.Dtos;
 using Medicination.API.Core.Models;
 using Medicination.API.Core.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medicination.API.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[action]")]
 	[ApiController]
-	public class MembersContoller : ControllerBase
+	public class MembersController : ControllerBase
 	{
 		private readonly IMemberService _service;
 		private readonly IMapper _mapper;
 
-		public MembersContoller(IMemberService service, IMapper mapper)
+		public MembersController(IMemberService service, IMapper mapper)
 		{
 			_service = service;
 			_mapper = mapper;
+	
 		}
 
 		[HttpGet]
@@ -29,7 +31,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public async Task<IActionResult> GetById(int id)
+		public async Task<IActionResult> GetById(string id)
 		{
 			var member = await _service.GetById(id);
 			var memberDto= _mapper.Map<MemberDto>(member);
@@ -37,8 +39,9 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddCategory(MemberDto member)
+		public async Task<IActionResult> AddMember(MemberDto member)
 		{
+
 			var addedMember = await _service.AddAsync(_mapper.Map<Member>(member));
 			var memberDto = _mapper.Map<MemberDto>(addedMember);
 			return Ok(CustomResponseDto<MemberDto>.Succcess(201, memberDto));
@@ -46,7 +49,7 @@ namespace Medicination.API.Controllers
 
 
 		[HttpPut]
-		public async Task<IActionResult> UpdateCategory(MemberDto member)
+		public async Task<IActionResult> UpdateMember(MemberDto member)
 		{
 			await _service.UpdateAsync(_mapper.Map<Member>(member));
 
@@ -54,7 +57,7 @@ namespace Medicination.API.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<IActionResult> DeleteCategory(int id)
+		public async Task<IActionResult> DeleteMember(string id)
 		{
 			var member = await _service.GetById(id);
 			await _service.DeleteAsync(member);

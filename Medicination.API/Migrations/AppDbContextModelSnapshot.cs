@@ -24,11 +24,8 @@ namespace Medicination.API.Migrations
 
             modelBuilder.Entity("Medicination.API.Core.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
@@ -43,14 +40,12 @@ namespace Medicination.API.Migrations
 
             modelBuilder.Entity("Medicination.API.Core.Models.Medicine", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -76,11 +71,8 @@ namespace Medicination.API.Migrations
 
             modelBuilder.Entity("Medicination.API.Core.Models.Member", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
@@ -91,15 +83,13 @@ namespace Medicination.API.Migrations
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Members");
                 });
@@ -129,6 +119,9 @@ namespace Medicination.API.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -147,6 +140,9 @@ namespace Medicination.API.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -171,11 +167,11 @@ namespace Medicination.API.Migrations
 
             modelBuilder.Entity("MedicineMember", b =>
                 {
-                    b.Property<int>("MedicinesId")
-                        .HasColumnType("int");
+                    b.Property<string>("MedicinesId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("MembersId")
-                        .HasColumnType("int");
+                    b.Property<string>("MembersId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("MedicinesId", "MembersId");
 
@@ -186,8 +182,8 @@ namespace Medicination.API.Migrations
 
             modelBuilder.Entity("MedicineUser", b =>
                 {
-                    b.Property<int>("MedicinesId")
-                        .HasColumnType("int");
+                    b.Property<string>("MedicinesId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UsersId")
                         .HasColumnType("nvarchar(450)");
@@ -347,7 +343,9 @@ namespace Medicination.API.Migrations
                 {
                     b.HasOne("Medicination.API.Core.Models.User", "User")
                         .WithMany("Members")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

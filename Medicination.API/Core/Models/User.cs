@@ -9,7 +9,9 @@ namespace Medicination.API.Core.Models
             Medicines=new List<Medicine>();
             Members=new List<Member>();
         }
-        
+        public string? Name { get; set; }
+        public string? Surname { get; set; }
+
         public ICollection<Medicine>? Medicines { get; set; }
 		public ICollection<Member>? Members { get; set; }
      

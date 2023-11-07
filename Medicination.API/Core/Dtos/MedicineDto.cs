@@ -8,9 +8,9 @@ namespace Medicination.API.Core.Dtos
 		public DateTime ExpirationTime { get; set; }
 		public string? Description { get; set; }
 		public string? Usage { get; set; }
-		public int CategoryId { get; set; }
-        public List<int>? UserId { get; set; }
-        public List<int>? MemberId { get; set; }
+		public string CategoryId { get; set; }
+        public List<string>? UserId { get; set; }
+        public List<string>? MemberId { get; set; }
 
 	}
 }

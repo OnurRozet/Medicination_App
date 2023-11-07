@@ -37,7 +37,7 @@ namespace Medicination.API.Repository.Repositores
 			return _dbSet.AsNoTracking().AsQueryable();
 		}
 
-		public async Task<T> GetById(int id)
+		public async Task<T> GetById(string id)
 		{
 			return await _dbSet.FindAsync(id);
 		}

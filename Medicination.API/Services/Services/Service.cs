@@ -44,7 +44,7 @@ namespace Medicination.API.Services.Services
 			return await _repository.GetAll().ToListAsync();
 		}
 
-		public async Task<T> GetById(int id)
+		public async Task<T> GetById(string id)
 		{
 			return await _repository.GetById(id);
 

@@ -5,7 +5,7 @@ namespace Medicination.API.Core.Repositories
 	public interface IGenericRepository<T> where T : class
 	{
 		IQueryable<T> GetAll();
-		Task<T> GetById(int id);
+		Task<T> GetById(string id);
 
 		IQueryable<T> Where(Expression<Func<T, bool>> espression);
 		Task AddAsync(T entity); 

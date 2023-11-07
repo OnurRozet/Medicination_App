@@ -4,7 +4,7 @@ namespace Medicination.API.Core.Models
 {
 	public class BaseUserEntity
 	{
-		public int Id { get; set; }
+		public string Id { get; set; }
 		public string? Name { get; set; }
         public string? Surname { get; set; }
 		public Gender Gender { get; set; }
