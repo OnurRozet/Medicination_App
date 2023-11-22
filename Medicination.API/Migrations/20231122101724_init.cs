@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Medicination.API.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -197,7 +197,7 @@ namespace Medicination.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MedicineName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MedicineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExpirationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Usage = table.Column<string>(type: "nvarchar(max)", nullable: true),

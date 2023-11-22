@@ -4,6 +4,7 @@ using Medicination.API.Core.Models;
 using Medicination.API.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace Medicination.API.Controllers
 {
@@ -44,6 +45,7 @@ namespace Medicination.API.Controllers
 		public async Task<IActionResult> AddMedicine(MedicineDto medicineDto)
 		{
 
+		
 			var medicine = _mapper.Map<Medicine>(medicineDto);
 
 			if (medicineDto.UserId != null)

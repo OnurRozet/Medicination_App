@@ -12,8 +12,8 @@ namespace Medicination.API.Core.Models
             Members = new List<Member>();
         }
 
-        public string? MedicineName { get; set; }
-		public DateTime ExpirationTime { get; set; }
+        public string MedicineName { get; set; }
+		public string ExpirationTime { get; set; }
 		public string? Description { get; set; }
 		public string? Usage { get; set; }
        

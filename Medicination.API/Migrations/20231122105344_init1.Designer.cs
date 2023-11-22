@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medicination.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231107083638_init1")]
+    [Migration("20231122105344_init1")]
     partial class init1
     {
         /// <inheritdoc />
@@ -56,10 +56,12 @@ namespace Medicination.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ExpirationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ExpirationTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MedicineName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Usage")
